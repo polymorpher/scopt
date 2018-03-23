@@ -1,4 +1,4 @@
-package scopt
+package sc0opt
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
@@ -13,10 +13,10 @@ object OS extends js.Object {
 
 class ParseException(s: String, errorOffset: Int) extends Exception(s)
 
-private[scopt] object platform {
+private[sc0opt] object platform {
   val _NL = OS.EOL
 
-  type ParseException = scopt.ParseException
+  type ParseException = sc0opt.ParseException
   def mkParseEx(s: String, p: Int) = new ParseException(s, p)
 
   trait PlatformReadInstances {

@@ -120,7 +120,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def unitParser(args: String*) = {
     var foo = false
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Unit]('f', "foo").foreach( _ => foo = true )
       help("help")
@@ -131,7 +131,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def unitParserHidden(args: String*) = {
     var debug = false
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Unit]("debug").hidden().foreach( _ => debug = true )
       help("help")
@@ -142,7 +142,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def intParser(args: String*) = {
     var foo = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Int]('f', "foo").foreach( x => foo = x )
       help("help")
@@ -153,7 +153,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def longParser(args: String*) = {
     var foo = 0L
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Long]('f', "foo").foreach( x => foo = x )
       help("help")
@@ -164,7 +164,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def intParserFail(args: String*) = {
     var foo = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Int]('f', "foo").foreach( x => foo = x )
       help("help")
@@ -174,7 +174,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def stringParser(args: String*) = {
     var foo = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[String]("foo").foreach( x => foo = x )
       help("help")
@@ -185,7 +185,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def doubleParser(args: String*) = {
     var foo = 0.0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Double]("foo").foreach( x => foo = x )
       help("help")
@@ -196,7 +196,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def doubleParserFail(args: String*) = {
     var foo = 0.0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Double]("foo").foreach( x => foo = x )
       help("help")
@@ -206,7 +206,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def trueParser(args: String*) = {
     var foo = false
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Boolean]("foo").foreach( x => foo = x )
       help("help")
@@ -217,7 +217,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def boolParserFail(args: String*) = {
     var foo = false
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Boolean]("foo").foreach( x => foo = x )
       help("help")
@@ -228,7 +228,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
   def pairParser(args: String*) = {
     var foo = ""
     var value = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[(String, Int)]("foo").foreach({ case (k, v) =>
         foo = k
@@ -243,7 +243,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
   def pairParserFail(args: String*) = {
     var foo = ""
     var value = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[(String, Int)]("foo").foreach({ case (k, v) =>
         foo = k
@@ -256,7 +256,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def requiredFail(args: String*) = {
     var foo = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[String]("foo").required().foreach( x => foo = x )
       help("help")
@@ -266,7 +266,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def requiredWithFallback(args: Seq[String], expected: String) = {
     var stringValue = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[String]("stringValue").required().withFallback(() => "someFallback")
         .foreach( x => stringValue = x )
@@ -278,7 +278,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def validFail(args: String*) = {
     var foo = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       opt[Int]('f', "foo").foreach( x => foo = x ).
         validate( x =>
@@ -292,7 +292,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def intArg(args: String*) = {
     var port = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       arg[Int]("<port>").foreach( x => port = x )
       help("help")
@@ -303,7 +303,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def intArgFail(args: String*) = {
     var port = 0
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       arg[Int]("<port>").foreach( x => port = x )
       help("help")
@@ -314,7 +314,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
   def multipleArgs(args: String*) = {
     var a = ""
     var b = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       arg[String]("<a>").foreach( x => a = x )
       arg[String]("<b>").foreach( x => b = x )
@@ -327,7 +327,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
   def unboundedArgs(args: String*) = {
     var a = ""
     var b = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       arg[String]("<a>").foreach( x => a = x ).unbounded()
       arg[String]("<b>").foreach( x => b = x )
@@ -340,7 +340,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
   def emptyArgs(args: String*) = {
     var a = ""
     var b = ""
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       arg[String]("<a>").foreach( x => a = x ).unbounded().optional()
       arg[String]("<b>").foreach( x => b = x ).optional()
@@ -351,7 +351,7 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
 
   def cmdParser(args: String*) = {
     var foo = false
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       cmd("update").foreach( _ => foo = true )
       help("help")
@@ -365,8 +365,8 @@ class MutableParserSpec extends Specification { def is = args(sequential = true)
       libName: String = "", maxCount: Int = -1, verbose: Boolean = false, debug: Boolean = false,
       mode: String = "", keepalive: Boolean = false)
     var c = Config()
-    val parser = new scopt.OptionParser[Unit]("scopt") {
-      override def renderingMode = scopt.RenderingMode.OneColumn
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
+      override def renderingMode = sc0opt.RenderingMode.OneColumn
       head("scopt", "3.x")
 
       opt[Int]('f', "foo").foreach( x => c = c.copy(foo = x) ).
@@ -429,7 +429,7 @@ update is a command.
       libName: String = "", maxCount: Int = -1, verbose: Boolean = false, debug: Boolean = false,
       mode: String = "", keepalive: Boolean = false)
     var c = Config()
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
 
       opt[Int]('f', "foo").foreach( x => c = c.copy(foo = x) ).
@@ -481,8 +481,8 @@ update is a command.
   --xyz <value>            xyz is a boolean property"""
   }
 
-  def printParserError(body: scopt.OptionParser[Unit] => Unit): String = {
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+  def printParserError(body: sc0opt.OptionParser[Unit] => Unit): String = {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       help("help") text("prints this usage text")
     }
@@ -490,8 +490,8 @@ update is a command.
     Console.withErr(bos) { body(parser) }
     bos.toString("UTF-8")
   }
-  def printParserOut(body: scopt.OptionParser[Unit] => Unit): String = {
-    val parser = new scopt.OptionParser[Unit]("scopt") {
+  def printParserOut(body: sc0opt.OptionParser[Unit] => Unit): String = {
+    val parser = new sc0opt.OptionParser[Unit]("scopt") {
       head("scopt", "3.x")
       help("help") text("prints this usage text")
     }

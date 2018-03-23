@@ -1,4 +1,4 @@
-package scopt
+package sc0opt
 
 
 
@@ -139,13 +139,13 @@ object RenderingMode {
   case object TwoColumns extends RenderingMode
 }
 
-private[scopt] sealed trait OptionDefKind {}
-private[scopt] case object Opt extends OptionDefKind
-private[scopt] case object Note extends OptionDefKind
-private[scopt] case object Arg extends OptionDefKind
-private[scopt] case object Cmd extends OptionDefKind
-private[scopt] case object Head extends OptionDefKind
-private[scopt] case object Check extends OptionDefKind
+private[sc0opt] sealed trait OptionDefKind {}
+private[sc0opt] case object Opt extends OptionDefKind
+private[sc0opt] case object Note extends OptionDefKind
+private[sc0opt] case object Arg extends OptionDefKind
+private[sc0opt] case object Cmd extends OptionDefKind
+private[sc0opt] case object Head extends OptionDefKind
+private[sc0opt] case object Check extends OptionDefKind
 
 /** <code>scopt.immutable.OptionParser</code> is instantiated within your object,
  * set up by an (ordered) sequence of invocations of
@@ -153,7 +153,7 @@ private[scopt] case object Check extends OptionDefKind
  * <a href="#opt[A](Char,String)(Read[A]):OptionDef[A,C]"><code>opt</code></a> method or
  * <a href="#arg[A](String)(Read[A]):OptionDef[A,C]"><code>arg</code></a> method.
  * {{{
- * val parser = new scopt.OptionParser[Config]("scopt") {
+ * val parser = new sc0opt.OptionParser[Config]("scopt") {
  *   head("scopt", "3.x")
  *
  *   opt[Int]('f', "foo").action( (x, c) =>
@@ -365,7 +365,7 @@ abstract class OptionParser[C](programName: String) {
     sorted.toList
   }
   def usageExample: String = commandExample(None)
-  private[scopt] def commandExample(cmd: Option[OptionDef[_, C]]): String = {
+  private[sc0opt] def commandExample(cmd: Option[OptionDef[_, C]]): String = {
     val text = new ListBuffer[String]()
     text += cmd map {commandName} getOrElse programName
     val parentId = cmd map {_.id}
@@ -378,7 +378,7 @@ abstract class OptionParser[C](programName: String) {
     else if (as.nonEmpty) text ++= as map {_.argName}
     text.mkString(" ")
   }
-  private[scopt] def commandName(cmd: OptionDef[_, C]): String =
+  private[sc0opt] def commandName(cmd: OptionDef[_, C]): String =
     (cmd.getParentId map { x =>
       (commands find {_.id == x} map {commandName} getOrElse {""}) + " "
     } getOrElse {""}) + cmd.name
@@ -395,7 +395,7 @@ abstract class OptionParser[C](programName: String) {
   protected def checks: Seq[OptionDef[_, C]] = options.toSeq filter {_.kind == Check}
   protected def makeDef[A: Read](kind: OptionDefKind, name: String): OptionDef[A, C] =
     updateOption(new OptionDef[A, C](parser = this, kind = kind, name = name))
-  private[scopt] def updateOption[A: Read](option: OptionDef[A, C]): OptionDef[A, C] = {
+  private[sc0opt] def updateOption[A: Read](option: OptionDef[A, C]): OptionDef[A, C] = {
     val idx = options indexWhere { _.id == option.id }
     if (idx > -1) options(idx) = option
     else options += option
@@ -570,7 +570,7 @@ class OptionDef[A: Read, C](
       _parentId = None, _minOccurs = 0, _maxOccurs = 1,
       _isHidden = false, _fallback = None)
 
-  private[scopt] def copy(
+  private[sc0opt] def copy(
     _parser: OptionParser[C] = this._parser,
     _id: Int = this._id,
     _kind: OptionDefKind = this._kind,
@@ -645,9 +645,9 @@ class OptionDef[A: Read, C](
   def withFallback(to: () => A): OptionDef[A, C] =
     _parser.updateOption(copy(_fallback = Option(to)))
 
-  private[scopt] def validateConfig(f: C => Either[String, Unit]) =
+  private[sc0opt] def validateConfig(f: C => Either[String, Unit]) =
     _parser.updateOption(copy(_configValidations = _configValidations :+ f))
-  private[scopt] def parent(x: OptionDef[_, C]): OptionDef[A, C] =
+  private[sc0opt] def parent(x: OptionDef[_, C]): OptionDef[A, C] =
     _parser.updateOption(copy(_parentId = Some(x.id)))
   /** Adds opt/arg under this command. */
   def children(xs: OptionDef[_, C]*): OptionDef[A, C] = {
@@ -655,24 +655,24 @@ class OptionDef[A: Read, C](
     this
   }
 
-  private[scopt] val kind: OptionDefKind = _kind
-  private[scopt] val id: Int = _id
+  private[sc0opt] val kind: OptionDefKind = _kind
+  private[sc0opt] val id: Int = _id
   val name: String = _name
-  private[scopt] def callback: (A, C) => C = _action
+  private[sc0opt] def callback: (A, C) => C = _action
   def getMinOccurs: Int = _minOccurs
   def getMaxOccurs: Int = _maxOccurs
-  private[scopt] def shortOptOrBlank: String = _shortOpt getOrElse("")
-  private[scopt] def hasParent: Boolean = _parentId.isDefined
-  private[scopt] def getParentId: Option[Int] = _parentId
+  private[sc0opt] def shortOptOrBlank: String = _shortOpt getOrElse("")
+  private[sc0opt] def hasParent: Boolean = _parentId.isDefined
+  private[sc0opt] def getParentId: Option[Int] = _parentId
   def isHidden: Boolean = _isHidden
   def hasFallback: Boolean = _fallback.isDefined
   def getFallback: A = _fallback.get.apply
-  private[scopt] def checks: Seq[C => Either[String, Unit]] = _configValidations
+  private[sc0opt] def checks: Seq[C => Either[String, Unit]] = _configValidations
   def desc: String = _desc
   def shortOpt: Option[String] = _shortOpt
   def valueName: Option[String] = _valueName
 
-  private[scopt] def applyArgument(arg: String, config: C): Either[Seq[String], C] =
+  private[sc0opt] def applyArgument(arg: String, config: C): Either[Seq[String], C] =
     try {
       val x = read.reads(arg)
       Validation.validateValue(_validations)(x) match {
@@ -682,25 +682,25 @@ class OptionDef[A: Read, C](
     } catch applyArgumentExHandler(shortDescription.capitalize, arg)
 
   // number of tokens to read: 0 for no match, 2 for "--foo 1", 1 for "--foo:1"
-  private[scopt] def shortOptTokens(arg: String): Int =
+  private[sc0opt] def shortOptTokens(arg: String): Int =
     _shortOpt match {
       case Some(c) if arg == "-" + shortOptOrBlank                 => 1 + read.tokensToRead
       case Some(c) if arg startsWith ("-" + shortOptOrBlank + ":") => 1
       case Some(c) if arg startsWith ("-" + shortOptOrBlank + "=") => 1
       case _ => 0
     }
-  private[scopt] def longOptTokens(arg: String): Int =
+  private[sc0opt] def longOptTokens(arg: String): Int =
     if (arg == fullName) 1 + read.tokensToRead
     else if ((arg startsWith (fullName + ":")) || (arg startsWith (fullName + "="))) 1
     else 0
-  private[scopt] def tokensToRead(i: Int, args: Seq[String]): Int =
+  private[sc0opt] def tokensToRead(i: Int, args: Seq[String]): Int =
     if (i >= args.length || kind != Opt) 0
     else args(i) match {
       case arg if longOptTokens(arg) > 0  => longOptTokens(arg)
       case arg if shortOptTokens(arg) > 0 => shortOptTokens(arg)
       case _ => 0
     }
-  private[scopt] def apply(i: Int, args: Seq[String]): Either[String, String] =
+  private[sc0opt] def apply(i: Int, args: Seq[String]): Either[String, String] =
     if (i >= args.length || kind != Opt) Left("Option does not match")
     else args(i) match {
       case arg if longOptTokens(arg) == 2 || shortOptTokens(arg) == 2 =>
@@ -711,10 +711,10 @@ class OptionDef[A: Read, C](
         Right(arg drop ("-" + shortOptOrBlank + ":").length)
       case _ => Right("")
     }
-  private[scopt] def token(i: Int, args: Seq[String]): Option[String] =
+  private[sc0opt] def token(i: Int, args: Seq[String]): Option[String] =
     if (i >= args.length || kind != Opt) None
     else Some(args(i))
-  private[scopt] def usage: String =
+  private[sc0opt] def usage: String =
     kind match {
       case Head | Note | Check => _desc
       case Cmd =>
@@ -730,7 +730,7 @@ class OptionDef[A: Read, C](
         WW + (_shortOpt map { o => "-" + o + " | " } getOrElse { "" }) +
         fullName + NLTB + _desc
     }
-  private[scopt] def usageTwoColumn(col1Length: Int): String = {
+  private[sc0opt] def usageTwoColumn(col1Length: Int): String = {
     def spaceToDesc(str: String) = if (str.length <= col1Length) str + " " * (col1Length - str.length)
                                    else str.dropRight(WW.length) + NL + " " * col1Length
     kind match {
@@ -742,7 +742,7 @@ class OptionDef[A: Read, C](
       case Opt => spaceToDesc(usageColumn1 + WW) + _desc
     }
   }
-  private[scopt] def usageColumn1: String =
+  private[sc0opt] def usageColumn1: String =
     kind match {
       case Head | Note | Check => ""
       case Cmd =>
@@ -758,8 +758,8 @@ class OptionDef[A: Read, C](
         WW + (_shortOpt map { o => "-" + o + ", " } getOrElse { "" }) +
         fullName
     }
-  private[scopt] def keyValueString: String = (_keyName getOrElse defaultKeyName) + "=" + valueString
-  private[scopt] def valueString: String = (_valueName getOrElse defaultValueName)
+  private[sc0opt] def keyValueString: String = (_keyName getOrElse defaultKeyName) + "=" + valueString
+  private[sc0opt] def valueString: String = (_valueName getOrElse defaultValueName)
   def shortDescription: String =
     kind match {
       case Opt => "option " + fullName
@@ -771,7 +771,7 @@ class OptionDef[A: Read, C](
       case Opt => "--" + name
       case _   => name
     }
-  private[scopt] def argName: String =
+  private[sc0opt] def argName: String =
     kind match {
       case Arg if getMinOccurs == 0 => "[" + fullName + "]"
       case _   => fullName
@@ -779,7 +779,7 @@ class OptionDef[A: Read, C](
 }
 
 
-private[scopt] object OptionDef {
+private[sc0opt] object OptionDef {
   val UNBOUNDED = Int.MaxValue
   val NL = platform._NL
   val WW = "  "

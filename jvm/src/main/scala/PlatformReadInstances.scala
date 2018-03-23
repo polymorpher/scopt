@@ -1,8 +1,8 @@
-package scopt
+package sc0opt
 
 import java.net.UnknownHostException
 
-private[scopt] object platform {
+private[sc0opt] object platform {
   val _NL = System.getProperty("line.separator")
 
   import java.util.{Locale, Calendar, GregorianCalendar}

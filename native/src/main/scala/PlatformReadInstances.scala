@@ -1,9 +1,9 @@
-package scopt
+package sc0opt
 
 import java.io.File
 import java.net.UnknownHostException
 
-private[scopt] object platform {
+private[sc0opt] object platform {
   val _NL = System.getProperty("line.separator")
 
   type ParseException = Exception

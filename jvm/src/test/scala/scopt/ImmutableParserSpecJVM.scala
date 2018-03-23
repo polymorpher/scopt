@@ -24,7 +24,7 @@ class ImmutableParserSpecJVM extends Specification { def is = args(sequential = 
 
   import SpecUtil._
 
-  val calendarParser1 = new scopt.OptionParser[Config]("scopt") {
+  val calendarParser1 = new sc0opt.OptionParser[Config]("scopt") {
     head("scopt", "3.x")
     opt[Calendar]("foo").action( (x, c) => c.copy(calendarValue = x) )
     help("help")
@@ -38,7 +38,7 @@ class ImmutableParserSpecJVM extends Specification { def is = args(sequential = 
     result === None
   }
 
-  val fileParser1 = new scopt.OptionParser[Config]("scopt") {
+  val fileParser1 = new sc0opt.OptionParser[Config]("scopt") {
     head("scopt", "3.x")
     opt[File]("foo").action( (x, c) => c.copy(fileValue = x) )
     help("help")
@@ -48,7 +48,7 @@ class ImmutableParserSpecJVM extends Specification { def is = args(sequential = 
     result.get.fileValue === new File("test.txt")
   }
 
-  val inetAddressParser1 = new scopt.OptionParser[Config]("scopt") {
+  val inetAddressParser1 = new sc0opt.OptionParser[Config]("scopt") {
     head("scopt", "3.x")
     opt[InetAddress]("foo").action( (x, c) => c.copy(inetAddressValue = x) )
     help("help")

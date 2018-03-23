@@ -1,4 +1,4 @@
-package scopt
+package sc0opt
 
 import java.io.File
 case class Config(foo: Int = -1, out: File = new File("."), xyz: Boolean = false,
@@ -16,7 +16,7 @@ object Test {
     }
   }
 
-  val parser = new scopt.OptionParser[Config]("scopt") {
+  val parser = new sc0opt.OptionParser[Config]("scopt") {
     head("scopt", "3.x")
 
     opt[Int]('f', "foo").action( (x, c) =>

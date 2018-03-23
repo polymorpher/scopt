@@ -17,13 +17,13 @@ lazy val scopt = (crossProject(JSPlatform, JVMPlatform, NativePlatform) in file(
   settings(
     inThisBuild(Seq(
       version := v,
-      organization := "com.github.scopt",
+      organization := "qokka.github",
       scalaVersion := scala212,
       crossScalaVersions := Seq(scala211, scala210, scala212, scala213),
       homepage := Some(url("https://github.com/scopt/scopt")),
       licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php"))
     )),
-    name := "scopt",
+    name := "sc0opt",
     // site
     // to preview, preview-site
     // to push, ghpages-push-site
